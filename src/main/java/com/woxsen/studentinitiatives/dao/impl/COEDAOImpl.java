@@ -20,6 +20,7 @@ import com.woxsen.studentinitiatives.entities.COE;
 import com.woxsen.studentinitiatives.entities.User;
 import com.woxsen.studentinitiatives.exceptions.NoSuchFileFoundException;
 import com.woxsen.studentinitiatives.storage.ImageProperties;
+import com.woxsen.studentinitiatives.utility.DeleteFile;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
@@ -120,9 +121,15 @@ public class COEDAOImpl implements COEDAO {
 		String MIMEType = file.getContentType();
 		String extension = MIMEType.substring(MIMEType.indexOf("/")+ 1);
 		
+		String[] extensions = {".jpeg",".png",".jpg"};
 		
 		String fileName = coeId + "." + extension;
+		
+		DeleteFile.deleteFile(String.valueOf(coeId), rootLocation.toString()+"/COE/"+ type + "/", extensions);
+		
 		Path finalLocation = Paths.get(rootLocation.toString()+"/COE/" + type + "/");
+		
+		
 		
 		try(InputStream inputStream = file.getInputStream()){
 			Files.copy(inputStream, finalLocation.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);		

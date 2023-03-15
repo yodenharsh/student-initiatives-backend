@@ -22,6 +22,7 @@ import com.woxsen.studentinitiatives.entities.ClubEvent;
 import com.woxsen.studentinitiatives.entities.misc.EventAdd;
 import com.woxsen.studentinitiatives.exceptions.NoSuchFileFoundException;
 import com.woxsen.studentinitiatives.storage.ImageProperties;
+import com.woxsen.studentinitiatives.utility.DeleteFile;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
@@ -127,8 +128,13 @@ public class EventDAOImpl implements EventDAO {
 		String MIMEType = file.getContentType();
 		String extension = MIMEType.substring(MIMEType.indexOf("/")+ 1);
 		
+		String[] extensions = {".jpeg",".png",".jpg"};
+
 		
 		String fileName = eventId + "." + extension;
+		
+		DeleteFile.deleteFile(String.valueOf(eventId), rootLocation.toString()+"/club/events/" + clubId + "/", extensions);
+		
 		Path finalLocation = Paths.get(rootLocation.toString()+"/club/events/" + clubId + "/");
 		if(!Files.exists(finalLocation))
 			try {

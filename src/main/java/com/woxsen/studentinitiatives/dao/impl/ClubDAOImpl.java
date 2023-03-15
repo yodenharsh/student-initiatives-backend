@@ -22,6 +22,7 @@ import com.woxsen.studentinitiatives.entities.User;
 import com.woxsen.studentinitiatives.entities.misc.ClubAdd;
 import com.woxsen.studentinitiatives.exceptions.NoSuchFileFoundException;
 import com.woxsen.studentinitiatives.storage.ImageProperties;
+import com.woxsen.studentinitiatives.utility.DeleteFile;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
@@ -128,8 +129,13 @@ public class ClubDAOImpl implements ClubDAO {
 		String MIMEType = file.getContentType();
 		String extension = MIMEType.substring(MIMEType.indexOf("/")+ 1);
 		
+		String[] extensions = {".jpeg",".png",".jpg"};
+
 		
 		String fileName = clubId + "." + extension;
+		
+		DeleteFile.deleteFile(String.valueOf(clubId), rootLocation.toString()+"/club/"+type+"/", extensions);
+		
 		Path finalLocation = Paths.get(rootLocation.toString()+"/club/" + type + "/");
 		
 		

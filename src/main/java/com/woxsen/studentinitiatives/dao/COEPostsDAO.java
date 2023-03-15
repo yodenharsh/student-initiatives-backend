@@ -23,4 +23,6 @@ public interface COEPostsDAO {
 	public InputStreamResource getImage(int coeId, int coePostId);
 	
 	public void saveImage(int coeId, int coePostId);
+	
+	public InputStreamResource getFile(int coeId);
 }
