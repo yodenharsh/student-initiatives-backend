@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,9 +42,8 @@ public class UserREST {
 	}
 	
 	@CrossOrigin
-	@GetMapping("/user/{email}/{password}")
-	public Club login(@PathVariable String email, @PathVariable String password) throws InvalidCredentialsException {
-		User user = new User(email, password, null);
+	@PostMapping(value = "/user/login", consumes = "application/json")
+	public Club login(@RequestBody User user) throws InvalidCredentialsException {
 		Club club = userService.loginAndGetClubID(user);
 		System.out.println(club);
 		return club;

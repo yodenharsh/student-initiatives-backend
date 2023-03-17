@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import com.woxsen.studentinitiatives.storage.ImageProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties(ImageProperties.class)
+@EnableConfigurationProperties(value =  ImageProperties.class)
 public class StudentInitiativesBackendApplication {
 
 	public static void main(String[] args) {

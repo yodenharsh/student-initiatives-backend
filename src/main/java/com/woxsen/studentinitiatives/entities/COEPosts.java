@@ -2,7 +2,9 @@ package com.woxsen.studentinitiatives.entities;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,6 +18,7 @@ import jakarta.persistence.Table;
 
 @Table(name = "coe-posts")
 @Entity
+@JsonFilter("noCOEFilter")
 public class COEPosts {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +29,14 @@ public class COEPosts {
 	@Column(name = "title")
 	private String title;
 	
-	@Column(name = "desc")
+	@Column(name = "`desc`")
 	private String desc;
 	
-	@Column(name = "date")
+	@Column(name = "`date`")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime date;
 	
+	@JsonProperty("coe")
 	@JoinColumn(name = "coeId")
 	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST,})
 	private COE coeId;

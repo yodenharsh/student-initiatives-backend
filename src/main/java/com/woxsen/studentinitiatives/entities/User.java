@@ -1,7 +1,5 @@
 package com.woxsen.studentinitiatives.entities;
 
-import org.springframework.lang.Nullable;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -23,6 +21,7 @@ public class User {
 	private String email;
 	
 	@Column(name = "password")
+	@JsonIgnore
 	private String password;
 	
 	@JsonManagedReference(value = "email")
@@ -55,6 +54,11 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.club = club;
+	}
+	
+	public User(String email, String password) {
+		this.email = email;
+		this.password = password;
 	}
 
 }

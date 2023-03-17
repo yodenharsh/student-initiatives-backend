@@ -1,4 +1,4 @@
-package com.woxsen.studentinitiatives.dao;
+package com.woxsen.studentinitiatives.service;
 
 import java.util.List;
 
@@ -8,9 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.woxsen.studentinitiatives.entities.COEPosts;
 import com.woxsen.studentinitiatives.exceptions.NoSuchFileFoundException;
 
-public interface COEPostsDAO {
-	
-	public int addCOEPost(COEPosts coePost);
+public interface COEPostsService {
+	public int addCOEPost(COEPosts coePost, int coeId);
 	
 	public COEPosts findById(int coePostId);
 	
