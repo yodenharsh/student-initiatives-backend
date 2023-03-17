@@ -162,11 +162,15 @@ public class COEPostsDAOImpl implements COEPostsDAO {
 
 	@Override
 	public InputStreamResource getFile(int coePostId, int coeId) throws NoSuchFileFoundException {
+		String extension = "a.zip";
 		var file = new ClassPathResource(rootLocationClassResource + "/COE/posts/" +coeId+ "/" + coePostId + ".zip");
-		if(!file.exists()) file = new ClassPathResource(rootLocationClassResource + "/COE/posts/" +coeId+ "/" + coePostId+".pdf");
+		if(!file.exists()) {file = new ClassPathResource(rootLocationClassResource + "/COE/posts/" +coeId+ "/" + coePostId+".pdf");
+			extension = "a.pdf";
+		}
 		if(!file.exists()) throw new NoSuchFileFoundException("File with coeId="+coeId + " and coePostId="+coePostId+" was not found");
 		try {
-			return new InputStreamResource(file.getInputStream());
+			InputStreamResource returnThisFile = new InputStreamResource(file.getInputStream(), extension);
+			return returnThisFile;
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new NoSuchFileFoundException(file + " doesn't exist!");

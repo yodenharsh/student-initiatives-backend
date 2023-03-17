@@ -46,6 +46,17 @@ public class COE {
 		this.vision = vision;
 	}
 	
+	
+	
+	public COE(@NotNull String name, String mentors, String mission, String vision) {
+		this.name = name;
+		this.mentors = mentors;
+		this.mission = mission;
+		this.vision = vision;
+	}
+
+
+
 	public COE() {}
 
 	public int getId() {

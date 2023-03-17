@@ -40,7 +40,6 @@ public class Club {
 	@JoinColumn(name = "school_id")
 	private School school;
 	
-	@JsonBackReference(value = "event")
 	@OneToMany(mappedBy = "eventId", fetch = FetchType.EAGER)
 	private List<ClubEvent> events;
 	

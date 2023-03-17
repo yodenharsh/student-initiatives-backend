@@ -1,10 +1,11 @@
 package com.woxsen.studentinitiatives.service.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.woxsen.studentinitiatives.dao.UserDAO;
-import com.woxsen.studentinitiatives.entities.Club;
 import com.woxsen.studentinitiatives.entities.User;
 import com.woxsen.studentinitiatives.exceptions.InvalidCredentialsException;
 import com.woxsen.studentinitiatives.service.UserService;
@@ -36,8 +37,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public Club loginAndGetClubID(User user) throws InvalidCredentialsException {
-		return userDAO.loginAndGetClubID(user);
+	public Map<String, Integer> loginAndGetID(User user) throws InvalidCredentialsException {
+		return userDAO.loginAndGetID(user);
 	}
 
 }

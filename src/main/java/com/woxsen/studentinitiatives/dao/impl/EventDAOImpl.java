@@ -46,7 +46,7 @@ public class EventDAOImpl implements EventDAO {
 		
 		Session session = entityManager.unwrap(Session.class);
 		
-		String HQLQuery = "from Event";
+		String HQLQuery = "from ClubEvent";
 		
 		List<ClubEvent> events = session.createSelectionQuery(HQLQuery, ClubEvent.class).getResultList();
 		

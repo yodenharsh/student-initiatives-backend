@@ -27,6 +27,8 @@ import com.woxsen.studentinitiatives.entities.COEPosts;
 import com.woxsen.studentinitiatives.exceptions.NoSuchFileFoundException;
 import com.woxsen.studentinitiatives.service.COEPostsService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api")
 public class COEPostsREST {
@@ -97,14 +99,23 @@ public class COEPostsREST {
 	}
 	
 	@GetMapping(value = "/coe-post/{coeId}/file/{coePostId}")
-	public ResponseEntity<InputStreamResource> getFile(@PathVariable int coeId, @PathVariable int coePostId) throws NoSuchFileFoundException{
-		return ResponseEntity.ok(coePostsService.getFile(coeId, coePostId));
+	public ResponseEntity<InputStreamResource> getFile(@PathVariable int coeId, @PathVariable int coePostId, HttpServletRequest request) throws NoSuchFileFoundException{
+		
+		InputStreamResource file = coePostsService.getFile(coePostId, coeId);
+		
+		String contentType = null;
+		
+		contentType = request.getServletContext().getMimeType(file.getDescription().substring(file.getDescription().indexOf('[')+1, file.getDescription().indexOf(']')));
+	     if(contentType == null) {
+	    	 contentType = "application/octet-stream";
+	    }
+		
+		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType)).body(file);
 	}
 	
-	@PutMapping(value = "/coe-post/{coeId}/file/{coePostId}", consumes = "application/json")
-	public ResponseEntity<HashMap<String, String>> addFile(@RequestParam("image") MultipartFile file, @PathVariable int coeId, @PathVariable int coePostId){
+	@PutMapping(value = "/coe-post/{coeId}/file/{coePostId}")
+	public ResponseEntity<HashMap<String, String>> addFile(@RequestParam("file") MultipartFile file, @PathVariable int coeId, @PathVariable int coePostId){
 		HashMap<String, String> response = new HashMap<>();
-		coePostsService.saveFile(file, coeId, coePostId);
 		response.put("success", "true");
 		coePostsService.saveFile(file, coeId, coePostId);
 		return ResponseEntity.ok(response);

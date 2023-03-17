@@ -2,8 +2,6 @@ package com.woxsen.studentinitiatives.entities;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +31,6 @@ public class ClubEvent {
 	@Column(name = "date")
 	private LocalDateTime date;
 	
-	@JsonManagedReference(value = "event")
 	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "club_id")
 	private Club club;

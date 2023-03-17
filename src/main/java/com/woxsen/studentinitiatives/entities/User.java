@@ -21,13 +21,16 @@ public class User {
 	private String email;
 	
 	@Column(name = "password")
-	@JsonIgnore
 	private String password;
 	
 	@JsonManagedReference(value = "email")
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Club club;
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private COE coe;
 	
 	public String getEmail() {
 		return email;
@@ -47,13 +50,19 @@ public class User {
 	public void setClub(Club club) {
 		this.club = club;
 	}
-	
+	public COE getCoe() {
+		return coe;
+	}
+	public void setCoe(COE coe) {
+		this.coe = coe;
+	}
 	public User() {}
-	public User(String email, String password, Club club) {
+	public User(String email, String password, Club club, COE coe) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.club = club;
+		this.coe = coe;
 	}
 	
 	public User(String email, String password) {
