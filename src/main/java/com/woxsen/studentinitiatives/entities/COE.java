@@ -36,23 +36,28 @@ public class COE {
 	
 	@Column(name = "vision")
 	private String vision;
+	
+	@Column(name = "cofounder_name")
+	private String coFounderName;
 
-	public COE(int id, User user, @NotNull String name, String mentors, String mission, String vision) {
+	public COE(int id, User user, @NotNull String name, String mentors, String mission, String vision, String coFounderName) {
 		this.id = id;
 		this.user = user;
 		this.name = name;
 		this.mentors = mentors;
 		this.mission = mission;
 		this.vision = vision;
+		this.coFounderName = coFounderName;
 	}
 	
 	
 	
-	public COE(@NotNull String name, String mentors, String mission, String vision) {
+	public COE(@NotNull String name, String mentors, String mission, String vision, String coFounderName) {
 		this.name = name;
 		this.mentors = mentors;
 		this.mission = mission;
 		this.vision = vision;
+		this.coFounderName = coFounderName;
 	}
 
 
@@ -106,6 +111,20 @@ public class COE {
 	public void setVision(String vision) {
 		this.vision = vision;
 	}
+
+
+
+	public String getCoFounderName() {
+		return coFounderName;
+	}
+
+
+
+	public void setCoFounderName(String coFounderName) {
+		this.coFounderName = coFounderName;
+	}
+	
+	
 	
 	
 }

@@ -53,6 +53,7 @@ COE -
 ```
 {
     "id": number,
+    "coFounderName": string
     "user": {
         "email": string
     },
@@ -364,6 +365,7 @@ JSON format - Event[]
 <p>Request body = JSON Format - </p>
 <p>{</p>
 <p>"name": string,</p>
+<p>"coFounderName": string</p>
 <p>"mentors": string | null,</p>
 <p>"mission": string | null,</p>
 <p>"vision": string | null</p>
@@ -380,6 +382,7 @@ JSON format - Event[]
 <p>JSON format -</p>
 <p>{</p>
 <p>"name": string,</p>
+<p>"coFounderName" : string</p>
 <p>"mentors": string | null,</p>
 <p>"mission": string | null,</p>
 <p>"vision": string | null</p>

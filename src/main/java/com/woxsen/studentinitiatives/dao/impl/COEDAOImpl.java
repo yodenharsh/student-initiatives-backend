@@ -85,6 +85,7 @@ public class COEDAOImpl implements COEDAO {
 		coeInDB.setMission(coe.getMission());
 		coeInDB.setVision(coe.getVision());
 		coeInDB.setName(coe.getName());
+		coeInDB.setCoFounderName(coe.getCoFounderName());
 		
 		return coeInDB;
 	}
