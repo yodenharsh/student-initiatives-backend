@@ -34,6 +34,20 @@ Club -
 }
 ```
 
+COE -
+
+```
+{
+    "id": number,
+    "user": {
+        "email": string
+    },
+    "mentors": string,
+    "mission": string,
+    "vision": string
+}
+```
+
 School -
 
 ```
@@ -168,7 +182,7 @@ School -
 <p>"mission":"To hire more",</p>
 <p>"vision": string,</p>
 <p>"email": string,</p>
-<p>"schoolId": number</p> {type} can only be one of ["logos","president", "vice-president"]
+<p>"schoolId": number</p> 
 <p>}</p>
 </td>
 <td>JSON format - { "clubId": number }</td>

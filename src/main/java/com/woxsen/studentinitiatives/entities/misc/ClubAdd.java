@@ -28,6 +28,20 @@ public class ClubAdd {
 		this.email = email;
 	}
 	
+	
+	
+	public ClubAdd(String clubName, String presidentName, String vicePresidentName, String mission, String vision,
+			String email) {
+		this.clubName = clubName;
+		this.presidentName = presidentName;
+		this.vicePresidentName = vicePresidentName;
+		this.mission = mission;
+		this.vision = vision;
+		this.email = email;
+	}
+
+
+
 	public ClubAdd() {}
 
 	public String getClubName() {

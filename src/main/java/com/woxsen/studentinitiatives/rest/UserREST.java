@@ -1,5 +1,6 @@
 package com.woxsen.studentinitiatives.rest;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,17 +31,21 @@ public class UserREST {
 	
 	@CrossOrigin
 	@PostMapping(value = "/user/", consumes = "application/json")
-	public ResponseEntity<String> saveUser(@RequestBody @Valid User user) {
+	public ResponseEntity<HashMap<String, String>> saveUser(@RequestBody @Valid User user) {
 		System.out.println("Executed");
 		userService.save(user);
-		return ResponseEntity.ok("Added user");
+		HashMap<String, String> response = new HashMap<>();
+		response.put("success",	"true");
+		return ResponseEntity.ok(response);
 	}
 	
 	@CrossOrigin
 	@DeleteMapping("/user/")
-	public ResponseEntity<String> deleteUser(@RequestBody User user) throws InvalidCredentialsException {
+	public ResponseEntity<HashMap<String,String>> deleteUser(@RequestBody User user) throws InvalidCredentialsException {
 		userService.delete(user);
-		return ResponseEntity.ok("Deleted User");
+		HashMap<String, String> response = new HashMap<>();
+		response.put("success", "true");
+		return ResponseEntity.ok(response);
 	}
 	
 	@SuppressWarnings("deprecation")
