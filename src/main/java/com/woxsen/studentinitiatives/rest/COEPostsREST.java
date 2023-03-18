@@ -8,6 +8,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -31,6 +32,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class COEPostsREST {
 
 	private COEPostsService coePostsService;
@@ -70,9 +72,9 @@ public class COEPostsREST {
 		return coePostsService.findById(coePostId);
 	}
 
-	@PatchMapping(value = "/coe-post", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public COEPosts updateCOEPost(@RequestBody COEPosts coePost) {
-		return coePostsService.patchCOEPost(coePost);
+	@PatchMapping(value = "/coe-post/{coePostId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public COEPosts updateCOEPost(@RequestBody COEPosts coePost, @PathVariable int coePostId) {
+		return coePostsService.patchCOEPost(coePost, coePostId);
 	}
 
 	@DeleteMapping(value = "/coe-post/{coePostId}")

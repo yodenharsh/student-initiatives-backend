@@ -24,14 +24,28 @@ Club -
 ```
 {
 
-"clubId": number,
-"clubName": string,
-"presidentName": string,
-"vicePresidentName": string,
-"mission": string,
-"vision": string,
+    "clubId": number,
+    "clubName": string,
+    "presidentName": string,
+    "vicePresidentName": string,
+    "mission": string,
+    "vision": string,
 
 }
+
+```
+
+Event (Club) -
+
+```
+{
+    eventId: number,
+    title: string,
+    eventDesc: string,
+    date: string (format: "yyyy-MM-dd HH:mm:ss"),
+    club: Club
+}
+
 ```
 
 COE -
@@ -54,6 +68,18 @@ School -
 {
     "schoolId": number,
     "schoolName" : string
+}
+```
+
+COEPosts -
+
+```
+{
+    id: number,
+    title: string,
+    desc: string,
+    date: string (format: "yyyy-MM-dd HH:mm:ss")
+    coe: COE
 }
 ```
 
@@ -308,3 +334,177 @@ JSON format - Event[]
 </table>
 
 ## COE
+
+<table>
+<tr>
+<th>URL</th>
+<th>Method</th>
+<th>Consumes</th>
+<th>Produces</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>/api/coe</td>
+<td>GET</td>
+<td>Nothing</td>
+<td>JSON format - COE[]</td>
+<td>Returns a list of all COEs in database</td>
+</tr>
+<tr>
+<td>/api/coe/{id}</td>
+<td>GET</td>
+<td>The {id} path variable</td>
+<td>JSON format - COE</td>
+<td>Returns information on a particular COE</td>
+</tr>
+<tr>
+<td>/api/coe/{coFounderEmail}</td>
+<td>POST</td>
+<td><p>the {coFounderEmail} path variable and</p>
+<p>Request body = JSON Format - </p>
+<p>{</p>
+<p>"name": string,</p>
+<p>"mentors": string | null,</p>
+<p>"mission": string | null,</p>
+<p>"vision": string | null</p>
+<p>}</p>
+</td>
+<td>JSON format - { "id" : string }</td>
+<td>Adds the given COE to database and returns it's id
+</tr>
+<tr>
+<td>/api/coe/{id}</td>
+<td>PATCH</td>
+<td>
+<p>Request Body =</p>
+<p>JSON format -</p>
+<p>{</p>
+<p>"name": string,</p>
+<p>"mentors": string | null,</p>
+<p>"mission": string | null,</p>
+<p>"vision": string | null</p>
+<p>}</p>
+</td>
+<td>JSON format - COE</td>
+<td>Returns the COE with updated information</td>
+</tr>
+<tr>
+<td>/api/coe/{id}</td>
+<td>DELETE</td>
+<td>The path variable {id}</td>
+<td>JSON format - {"success" : string}</td>
+<td>Deletes the COE with given id and returns a success: "true" or "false"</td>
+</tr>
+<tr>
+<td>/api/coe/{coeId}/image/{type}</td>
+<td>GET</td>
+<td>The path variable {coeId} and {type}. Valid type values = ["logo","cofounder"]</td>
+<td>Image or JSON</td>
+<td>Gets the image or returns a JSON in case of incorrect type or no image being found for those params.</td>
+</tr>
+<tr>
+<td>/api/coe/{coeId}/image/{type}</td>
+<td>PUT</td>
+<td>The path variable {coeId} and {type}. Also, a Form-Data as body with the image attached to key "image" .Valid type values = ["logo","cofounder"]. Only JPEG, JPG or PNG allowed.
+</td>
+<td>JSON format - {"success": string}</td>
+<td>Adds the given image to the backend</td>
+</tr>
+</table>
+
+## COE Posts
+
+<table>
+<tr>
+<th>URL</th>
+<th>Method</th>
+<th>Consumes</th>
+<th>Produces</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>/api/coe-post/</td>
+<td>GET</td>
+<td>Nothing</td>
+<td>COEPosts[]</td>
+<td>Gets all COE Posts (Not recommended for general user-sided tasks)
+</tr>
+<tr>
+<td>/api/coe-post/coe/{coeId}</td>
+<td>GET</td>
+<td>The path variable {coeId}</td>
+<td>COEPosts[]</td>
+<td>Gets all COE Posts from COE whose id = coeId
+</tr>
+<tr>
+<td>/api/coe-post/{coePostId}</td>
+<td>GET</td>
+<td>The path variable {coePostId}</td>
+<td>COEPosts</td>
+<td>Gets info for COE Post with id = coePostId</td>
+</tr>
+<tr>
+<td>/api/coe-post/{coeId}/</td>
+<td>POST</td>
+<td><p>The path variable {coeId} and request body = JSON Format -</p>
+<p>{</p>
+<p>"title" : string</p>
+<p>"desc" : string | null</p>
+<p>"date" : string (format: "yyyy-MM-dd HH:mm:ss") | null
+<p>}</p>
+</td>
+<td>JSON Format - {"coePostId": string}</td>
+<td>Adds COE and returns it's ID in database</td>
+</tr>
+<tr>
+<td>/api/coe-post/{coePostId}</td>
+<td>PATCH</td>
+<td><p>The path variable {coePostId} and request body = </p>
+<p>JSON format - </p>
+<p>{</p>
+<p>"title" : string</p>
+<p>"desc" : string | null</p>
+<p>"date" : string (format: "yyyy-MM-dd HH:mm:ss") | null
+<p>}</p>
+</td>
+<td>The updated COEPosts as JSON</td>
+<td>Updates the COE post with id = {coePostId} with given request body</td>
+</tr>
+<tr>
+<td>/api/coe-post/{coePostId}</td>
+<td>DELETE</td>
+<td>The path variable {coePostId}</td>
+<td>JSON format - {"success" : string}</td>
+<td>Deletes the given COE post which has id = {coePostId} and returns success = "true" or "false"</td>
+</tr>
+<tr>
+<td>/api/coe-post/{coeId}/image/{coePostId}</td>
+<td>GET</td>
+<td>The path variables {coeId} and {coePostId}</td>
+<td>.JPEG, .PNG or .JPG in case of success or a JSON in case of error</td>
+<td>Gets the image with the given coeId and coePostId</td>
+</tr>
+<tr>
+<td>/api/coe-post/{coeId}/image/{coePostId}</td>
+<td>PUT</td>
+<td>The path variables {coeId} and {coePostId} and a Form-Data as body with image attached to key "image"</td>
+<td>JSON format - {"success": string}</td>
+<td>Saves the image with given {coeId} and {coePostId} and returns "success" = "true" or "false"</td>
+</tr>
+<tr>
+<td>/api/coe-post/{coeId}/file/{coePostId}</td>
+<td>GET</td>
+<td>The variables {coeId} and {coePostId}</td>
+<td>.zip, .pdf or JSON</td>
+<td>Gets the file from the database otherwise returns a JSON with success:"false" in case of error</td>
+</td>
+<tr>
+<tr>
+<td>/api/coe-post/{coeId}/file/{coePostId}</td>
+<td>PUT</td>
+<td>The variables {coeId} and {coePostId} and request body should have a Form-Data and the file attached to key "file"</td>
+<td>JSON format = {"success": string}</td>
+<td>Stores the file in database and returns success: "true" or "false". Accepted file types = [".zip",".pdf"]</td>
+</td>
+</tr>
+</table>

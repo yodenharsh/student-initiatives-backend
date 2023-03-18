@@ -92,7 +92,7 @@ public class COEPostsDAOImpl implements COEPostsDAO {
 	public COEPosts patchCOEPost(COEPosts coePost) {
 		Session session = entityManager.unwrap(Session.class);
 		
-		COEPosts coePostFromDB = session.get(COEPosts.class, coePost.getCoeId());
+		COEPosts coePostFromDB = session.get(COEPosts.class, coePost.getId());
 		if(coePostFromDB == null) throw new EntityNotFoundException("No COEPost with id = "+coePost.getId()+ " was found");
 		
 		coePostFromDB.setDate(coePost.getDate());

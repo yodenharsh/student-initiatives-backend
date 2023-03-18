@@ -57,7 +57,8 @@ public class COEPostsServiceImpl implements COEPostsService {
 
 	@Override
 	@Transactional
-	public COEPosts patchCOEPost(COEPosts coePost) {
+	public COEPosts patchCOEPost(COEPosts coePost, int coePostId) {
+		coePost.setId(coePostId);
 		return coePostsDAO.patchCOEPost(coePost);
 	}
 

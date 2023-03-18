@@ -17,7 +17,7 @@ public interface COEPostsService {
 	
 	public List<COEPosts> findAll();
 	
-	public COEPosts patchCOEPost(COEPosts coePost);
+	public COEPosts patchCOEPost(COEPosts coePost, int coePostId);
 	
 	public boolean deleteCOEPostById(int coeId);
 	
