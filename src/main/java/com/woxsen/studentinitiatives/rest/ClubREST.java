@@ -57,12 +57,15 @@ public class ClubREST {
 
 	@CrossOrigin
 	@DeleteMapping(value = "/club/{clubId}")
-	public ResponseEntity<String> deleteClub(@PathVariable int clubId) {
+	public ResponseEntity<HashMap<String,String>> deleteClub(@PathVariable int clubId) {
+		HashMap<String, String> response = new HashMap<>();
 		try {
 			clubService.deleteById(clubId);
-			return ResponseEntity.ok("Club deleted successfully");
+			response.put("success", "false");
+			return ResponseEntity.ok(response);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+			response.put("success","false");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}
 	}
 

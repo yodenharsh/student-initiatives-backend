@@ -1,5 +1,6 @@
 package com.woxsen.studentinitiatives.rest;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,21 @@ public class SchoolREST {
 	
 	@CrossOrigin
 	@PostMapping(value = "/school/")
-	public ResponseEntity<String> addSchool(@RequestBody School school) {
+	public ResponseEntity<HashMap<String, String>> addSchool(@RequestBody School school) {
 		schoolService.add(school);
-		return ResponseEntity.status(HttpStatus.OK).body("The school was added to DB");
+		HashMap<String,String> response = new HashMap<>();
+		response.put("success", "true");
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
 	
 	@CrossOrigin
 	@DeleteMapping(value = "/school/{schoolId}")
-	public ResponseEntity<String> deleteSchool(	 int schoolId){
+	public ResponseEntity<HashMap<String, String>> deleteSchool(int schoolId){
 		schoolService.removeById(schoolId);
-		return ResponseEntity.status(HttpStatus.OK).body("The school was deleted");
+		HashMap<String,String> response = new HashMap<>();
+		response.put("success", "true");
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
 	@CrossOrigin

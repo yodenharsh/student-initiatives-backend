@@ -89,7 +89,7 @@ public class ClubDAOImpl implements ClubDAO {
 		School school = session.get(School.class, club.getSchoolId());
 		User user = session.get(User.class, club.getEmail());
 
-		if (school == null)
+		if (school == null && club.getSchoolId() != 0)
 			throw new EntityNotFoundException("No school with schoolId=" + club.getSchoolId() + " exists");
 		if (user == null)
 			throw new EntityNotFoundException("No user with email=" + club.getEmail() + " exists");

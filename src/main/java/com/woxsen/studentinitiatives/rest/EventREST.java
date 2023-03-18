@@ -67,18 +67,22 @@ public class EventREST {
 	
 	@CrossOrigin
 	@DeleteMapping("/event/{eventId}")
-	public ResponseEntity<String> delete(@PathVariable int eventId){
-		
+	public ResponseEntity<HashMap<String,String>> delete(@PathVariable int eventId){
+		HashMap<String, String> response = new HashMap<>();
 		eventService.remove(eventId);
-		return ResponseEntity.ok("Event with id="+eventId+" was deleted");
+		response.put("success", "true");
+		return ResponseEntity.ok(response);
 	}
 	
 	@CrossOrigin
 	@PatchMapping("/event/{eventId}")
-	public ResponseEntity<String> update(@RequestBody EventAdd event, @PathVariable int eventId){
+	public ResponseEntity<HashMap<String,String>> update(@RequestBody EventAdd event, @PathVariable int eventId){
 		eventService.update(eventId, event);
 		
-		return ResponseEntity.ok("Event with id="+eventId+" was updated");
+		HashMap<String, String> response = new HashMap<>();
+		response.put("success", "true");
+		
+		return ResponseEntity.ok(response);
 		
 	}
 	
@@ -90,9 +94,11 @@ public class EventREST {
 	
 	@CrossOrigin
 	@PutMapping(value = "/event/image/{clubId}/{eventId}")
-	public ResponseEntity<String> saveImage(@RequestParam("image") MultipartFile image, @PathVariable int clubId, @PathVariable int eventId){
+	public ResponseEntity<HashMap<String,String>> saveImage(@RequestParam("image") MultipartFile image, @PathVariable int clubId, @PathVariable int eventId){
 		eventService.saveImage(image, clubId, eventId);
+		HashMap<String, String> response = new HashMap<>();
+		response.put("success", "true");
 		
-		return ResponseEntity.ok("Image saved");
+		return ResponseEntity.ok(response);
 	}
 }

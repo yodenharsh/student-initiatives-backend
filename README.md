@@ -68,12 +68,19 @@ School -
 <th>Description</th>
 </tr>
 <tr>
-<td>/api/user/{email}/{password}</td>
-<td>GET</td>
-<td>The {email} and {password} path variables</td>
-<td>JSON Format - Club</td>
+<td>/api/user/login</td>
+<td>POST</td>
+<td><p>JSON format - { </p>
+<p>"email" : string</p>
+<p>"password" : string</p>
 </td>
-<td>Provided that the email-password combination is correct, returns a json containing information on the club the email is linked to.</td>
+<td><p>JSON Format -</p>
+<p>{clubId: string}</p>
+<p>OR</p>
+<p>{coeId: string}</p>
+</td>
+</td>
+<td>Provided that the email-password combination is correct, returns a json containing either the clubId associated with it the account or the coeId associated with the account</td>
 </tr>
 <tr>
 <td>/api/user/</td>
@@ -86,19 +93,18 @@ School -
 <p>}</p>
 </td>
 
-<td>JSON with HTTP code</td>
-<td>Adds a new user</td>
+<td>JSON format - {"success": string}</td>
+<td>Adds a new user and returns success: "true" or success: "false"</td>
 </tr>
 <tr>
 <td>/api/user/</td>
 <td>DELETE</td>
 <td><p>JSON Format - </p>
 <p>{</p>
-<p>"email":string,</p>
-<p>"password":string</p>
+<p>"success": string
 <p>}</p>
 </td>
-<td>JSON with HTTP code</td>
+<td>JSON with success: "true" or "false"</td>
 <td>Deletes the user with those credentials AND the club associated with that user</td>
 </tr>
 </table>
@@ -142,15 +148,15 @@ School -
 <td><p>JSON Format - </p>
 <p>{ "schoolName" : string }</p>
 </td>
-<td>String or JSON with HTTP response code</td>
-<td>Add a school to the database</td>
+<td>JSON format {"success":string}</td>
+<td>Add a school to the database and return success ("true" or "false")</td>
 </tr>
 <tr>
 <td>/api/school/{schoolId}</td>
 <td>DELETE</td>
 <td>The {schoolId} path variable</td>
-<td>String or JSON with HTTP response code</td>
-<td>Delete a school from DB by it's ID</td>
+<td>JSON format - {"success":string}</td>
+<td>Delete a school from DB by it's ID and returns success: "true" or "false"</td>
 </tr>
 </table>
 
@@ -179,10 +185,10 @@ School -
 <p>"clubName": string, </p>
 <p>"presidentName": string,</p>
 <p>"vicePresidentName": string,</p>
-<p>"mission":"To hire more",</p>
-<p>"vision": string,</p>
+<p>"mission":string | null,</p>
+<p>"vision": string | null,</p>
 <p>"email": string,</p>
-<p>"schoolId": number</p> 
+<p>"schoolId": number | null</p> 
 <p>}</p>
 </td>
 <td>JSON format - { "clubId": number }</td>
@@ -199,8 +205,8 @@ School -
 <td>/api/club/{clubId}</td>
 <td>DELETE</td>
 <td>The path variable {clubId}</td>
-<td>JSON with HTTP code</td>
-<td>Deletes club with the given clubId</td>
+<td>JSON format - {"success": string}</td>
+<td>Deletes club with the given clubId and returns success: "true" or "false"</td>
 </tr>
 <tr>
 <td>/api/club/{clubId}/image/{type}</td>
@@ -213,8 +219,8 @@ School -
 <td>/api/club/{clubId}/image/{type}</td>
 <td>POST</td>
 <td>The {clubId} and {type} path variables and a form-data as request body. Form-data should have a parameter "image" with the actual image (in JPEG,JPG or PNG format) attached as value. {type} can only be one of ["logos","president", "vice-president"]</td>
-<td>A string or JSON(if error occurs) with HTTP code</td>
-<td>Adds the club logo, president or vice-president of the given club.</td>
+<td>JSON format - {success: string}</td>
+<td>Adds the club logo, president or vice-president of the given club and returns success: "true" or "false"</td>
 </table>
 
 ## Club Events
@@ -268,8 +274,8 @@ JSON format - Event[]
 <td>/api/event/{eventId}</td>
 <td>DELETE</td>
 <td>The {eventId} path variable</td>
-<td>JSON with HTTP response</td>
-<td>Deletes the given event from the DB</td>
+<td>JSON format - {success: string}</td>
+<td>Deletes the given event from the DB and returns success: "true" or "false"</td>
 </tr>
 <tr>
 <td>/api/event/{eventId}</td>
@@ -282,8 +288,8 @@ JSON format - Event[]
 <p>"date": "yyyy-MM-dd HH:mm:ss"</p>
 <p>}</p>
 </td>
-<td>JSON with HTTP response</td>
-<td>Updates the event associated with given event ID</td>
+<td>JSON format - {"success" : string}</td>
+<td>Updates the event associated with given event ID and returns success: "true" or "false"</td>
 </tr>
 <tr>
 <td>/api/event/image/{clubId}/{eventId}</td>
@@ -296,7 +302,9 @@ JSON format - Event[]
 <td>/api/event/image/{clubId}/{eventId}</td>
 <td>PUT</td>
 <td>The {clubId} and {eventId} path variables and a form-data as request body. Form-data should have a parameter "image" with the actual image (in JPEG,JPG or PNG format) attached as value</td>
-<td>JSON with HTTP response</td>
-<td>Saves image</td>
+<td>JSON format - {"success" : string}</td>
+<td>Saves image and returns success = "true" or "false"</td>
 </tr>
 </table>
+
+## COE
