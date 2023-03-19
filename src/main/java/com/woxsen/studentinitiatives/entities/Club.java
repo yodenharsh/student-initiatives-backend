@@ -3,6 +3,7 @@ package com.woxsen.studentinitiatives.entities;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -35,8 +36,8 @@ public class Club {
 	@JoinColumn(name = "president_email")
 	private User user;
 	
-	@JsonBackReference(value = "school")
-	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
+	@JsonManagedReference(value = "school")
+	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "school_id")
 	private School school;
 	

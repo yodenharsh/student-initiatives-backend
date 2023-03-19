@@ -30,7 +30,7 @@ Club -
     "vicePresidentName": string,
     "mission": string,
     "vision": string,
-
+    "school" : School
 }
 
 ```
