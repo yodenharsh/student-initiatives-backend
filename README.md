@@ -53,6 +53,7 @@ COE -
 ```
 {
     "id": number,
+    "name": string,
     "coFounderName": string
     "user": {
         "email": string
@@ -395,8 +396,8 @@ JSON format - Event[]
 <td>/api/coe/{id}</td>
 <td>DELETE</td>
 <td>The path variable {id}</td>
-<td>JSON format - {"success" : string}</td>
-<td>Deletes the COE with given id and returns a success: "true" or "false"</td>
+<td>JSON format - {"success" : string, "id": string}</td>
+<td>Deletes the COE with given id and returns a success: "true" or "false" and returns the deleted COE's id if true</td>
 </tr>
 <tr>
 <td>/api/coe/{coeId}/image/{type}</td>

@@ -72,6 +72,7 @@ public class COEREST {
 
 		HashMap<String, String> response = new HashMap<String, String>();
 		response.put("id", String.valueOf(deletedCOEId));
+		response.put("success", "true");
 
 		return ResponseEntity.ok(response);
 	}
