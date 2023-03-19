@@ -61,7 +61,7 @@ public class ClubREST {
 		HashMap<String, String> response = new HashMap<>();
 		try {
 			clubService.deleteById(clubId);
-			response.put("success", "false");
+			response.put("success", "true");
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			response.put("success","false");
