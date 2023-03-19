@@ -42,7 +42,7 @@ public class SchoolREST {
 	
 	@CrossOrigin
 	@DeleteMapping(value = "/school/{schoolId}")
-	public ResponseEntity<HashMap<String, String>> deleteSchool(int schoolId){
+	public ResponseEntity<HashMap<String, String>> deleteSchool(@PathVariable int schoolId){
 		schoolService.removeById(schoolId);
 		HashMap<String,String> response = new HashMap<>();
 		response.put("success", "true");
