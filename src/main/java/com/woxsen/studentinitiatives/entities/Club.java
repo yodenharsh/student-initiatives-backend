@@ -3,6 +3,7 @@ package com.woxsen.studentinitiatives.entities;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -41,7 +42,7 @@ public class Club {
 	@JoinColumn(name = "school_id")
 	private School school;
 	
-	@OneToMany(mappedBy = "eventId", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "eventId")
 	private List<ClubEvent> events;
 	
 	@Column(name = "president_name")
@@ -78,7 +79,7 @@ public class Club {
 	}
 
 	
-
+	@JsonIgnore
 	public List<ClubEvent> getEvent() {
 		return events;
 	}

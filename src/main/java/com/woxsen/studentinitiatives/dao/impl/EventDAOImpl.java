@@ -61,7 +61,7 @@ public class EventDAOImpl implements EventDAO {
 		
 		if(club == null)throw new EntityNotFoundException("No club with clubId="+clubId+" was found");
 		
-		SelectionQuery<ClubEvent> q = session.createSelectionQuery("from Event e where e.club=:p", ClubEvent.class);
+		SelectionQuery<ClubEvent> q = session.createSelectionQuery("from ClubEvent e where e.club=:p", ClubEvent.class);
 		q.setParameter("p", club);
 		
 		List<ClubEvent> events = q.getResultList();
@@ -153,8 +153,8 @@ public class EventDAOImpl implements EventDAO {
 	@Override
 	public InputStreamResource getImage(int clubId, int eventId) throws NoSuchFileFoundException {
 		var imgFile = new ClassPathResource(rootLocationClassResource + "/club/events/" +clubId+ "/" + eventId + ".jpeg");
-		if(!imgFile.exists()) imgFile = new ClassPathResource(rootLocationClassResource + "/clubs/events/" +clubId+ "/" + eventId+".jpg");
-		if(!imgFile.exists()) imgFile = new ClassPathResource(rootLocationClassResource + "/clubs/events/" +clubId+ "/" + eventId+".png");
+		if(!imgFile.exists()) imgFile = new ClassPathResource(rootLocationClassResource + "/club/events/" +clubId+ "/" + eventId+".jpg");
+		if(!imgFile.exists()) imgFile = new ClassPathResource(rootLocationClassResource + "/club/events/" +clubId+ "/" + eventId+".png");
 		if(!imgFile.exists()) throw new NoSuchFileFoundException("Image with clubId="+clubId + " and eventId="+eventId+" was not found");
 		try {
 			return new InputStreamResource(imgFile.getInputStream());

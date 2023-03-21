@@ -2,6 +2,8 @@ package com.woxsen.studentinitiatives.entities;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +35,7 @@ public class ClubEvent {
 	
 	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "club_id")
+	@JsonIgnore
 	private Club club;
 
 	public int getEventId() {
