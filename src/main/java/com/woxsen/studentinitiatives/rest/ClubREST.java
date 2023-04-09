@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -76,6 +77,12 @@ public class ClubREST {
 		HashMap<String, Integer> map = new HashMap<>();
 		map.put("clubId", clubId);
 		return ResponseEntity.ok(map);
+	}
+	
+	@CrossOrigin
+	@PatchMapping(value = "/club/{clubId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Club patchClub(@PathVariable int clubId, @RequestBody Club club) {
+		return clubService.editDetails(clubId, club);
 	}
 
 	@CrossOrigin

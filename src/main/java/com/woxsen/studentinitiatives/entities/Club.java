@@ -37,7 +37,6 @@ public class Club {
 	@JoinColumn(name = "president_email")
 	private User user;
 	
-	@JsonManagedReference(value = "school")
 	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "school_id")
 	private School school;

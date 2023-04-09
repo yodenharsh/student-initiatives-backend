@@ -147,4 +147,18 @@ public class ClubDAOImpl implements ClubDAO {
 		}
 	}
 
+	@Override
+	public Club editDetails(int clubId, Club club) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		Club clubFromDB = session.get(Club.class, clubId);
+		clubFromDB.setClubName(club.getClubName());
+		clubFromDB.setMission(club.getMission());
+		clubFromDB.setPresidentName(club.getPresidentName());
+		clubFromDB.setVicePresidentName(club.getVicePresidentName());
+		clubFromDB.setVision(club.getVision());
+		
+		return clubFromDB;
+	}
+
 }

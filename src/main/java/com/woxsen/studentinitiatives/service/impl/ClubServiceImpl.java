@@ -59,4 +59,10 @@ public class ClubServiceImpl implements ClubService {
 		
 	}
 
+	@Override
+	@Transactional
+	public Club editDetails(int clubId, Club club) {
+		return clubDAO.editDetails(clubId, club);
+	}
+
 }

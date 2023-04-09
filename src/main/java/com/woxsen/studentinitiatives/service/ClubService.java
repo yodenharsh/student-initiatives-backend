@@ -19,6 +19,8 @@ public interface ClubService {
 	
 	public void deleteById(int clubId);
 	
+	public Club editDetails(int clubId, Club club);
+	
 	public InputStreamResource getImage(int clubId, String type) throws NoSuchFileFoundException;
 	
 	public void saveImage(int clubId, String type, MultipartFile file);

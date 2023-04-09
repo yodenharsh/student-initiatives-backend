@@ -33,129 +33,144 @@ public class EventDAOImpl implements EventDAO {
 	private EntityManager entityManager;
 	private final Path rootLocation;
 	private final Path rootLocationClassResource;
-	
+
 	@Autowired
-	public EventDAOImpl(EntityManager entityManager,ImageProperties properties) {
+	public EventDAOImpl(EntityManager entityManager, ImageProperties properties) {
 		this.entityManager = entityManager;
 		this.rootLocation = Paths.get(properties.getLocation());
 		this.rootLocationClassResource = Paths.get(properties.getLocationClassResource());
 	}
-	
+
 	@Override
 	public List<ClubEvent> findAll() {
-		
+
 		Session session = entityManager.unwrap(Session.class);
-		
+
 		String HQLQuery = "from ClubEvent";
-		
+
 		List<ClubEvent> events = session.createSelectionQuery(HQLQuery, ClubEvent.class).getResultList();
-		
+
 		return events;
 	}
 
 	@Override
 	public List<ClubEvent> findByClubID(int clubId) {
 		Session session = entityManager.unwrap(Session.class);
-		
+
 		Club club = session.get(Club.class, clubId);
-		
-		if(club == null)throw new EntityNotFoundException("No club with clubId="+clubId+" was found");
-		
+
+		if (club == null)
+			throw new EntityNotFoundException("No club with clubId=" + clubId + " was found");
+
 		SelectionQuery<ClubEvent> q = session.createSelectionQuery("from ClubEvent e where e.club=:p", ClubEvent.class);
 		q.setParameter("p", club);
-		
+
 		List<ClubEvent> events = q.getResultList();
-		
+
 		return events;
 	}
 
 	@Override
 	public ClubEvent findByEventId(int eventId) {
 		Session session = entityManager.unwrap(Session.class);
-		
+
 		ClubEvent event = session.get(ClubEvent.class, eventId);
-		if(event == null) throw new EntityNotFoundException("No event with eventId="+eventId+ " was found");
-		
+		if (event == null)
+			throw new EntityNotFoundException("No event with eventId=" + eventId + " was found");
+
 		return event;
 	}
 
 	@Override
 	public int add(EventAdd event) {
 		Session session = entityManager.unwrap(Session.class);
-		
+
 		Club club = session.get(Club.class, event.getClubId());
-		if(club == null) throw new EntityNotFoundException("No event with that club exists");
-		
+		if (club == null)
+			throw new EntityNotFoundException("No event with that club exists");
+
 		ClubEvent eventToAdd = new ClubEvent(event.getTitle(), event.getEventDesc(), event.getDate());
 		eventToAdd.setClub(club);
-		
+
 		session.persist(eventToAdd);
-		
+
 		return eventToAdd.getEventId();
 	}
 
 	@Override
 	public int remove(int eventId) {
 		Session session = entityManager.unwrap(Session.class);
-		
+
 		ClubEvent event = session.get(ClubEvent.class, eventId);
-		if(event == null) throw new EntityNotFoundException("No event with eventId="+eventId+" was found");
-		
-		
+		if (event == null)
+			throw new EntityNotFoundException("No event with eventId=" + eventId + " was found");
+		int clubId = event.getClub().getClubId();
+
+		DeleteFile.deleteFile(String.valueOf(eventId), rootLocation.toString() + "/club/events/" + clubId + "/",
+				new String[] { ".jpeg", ".png", ".jpg" });
+
 		session.remove(event);
-		
+
 		return eventId;
 	}
 
 	@Override
 	public int update(int eventId, EventAdd event) {
 		Session session = entityManager.unwrap(Session.class);
-		
+
 		ClubEvent eventInDB = session.get(ClubEvent.class, eventId);
-		
-		if(eventInDB == null) throw new EntityNotFoundException("No event with eventId="+eventId+" was found");
-		
+
+		if (eventInDB == null)
+			throw new EntityNotFoundException("No event with eventId=" + eventId + " was found");
+
 		eventInDB.setDate(event.getDate());
 		eventInDB.setEventDesc(event.getEventDesc());
 		eventInDB.setTitle(event.getTitle());
-		
+
 		return eventInDB.getEventId();
-		
+
 	}
 
 	@Override
 	public void saveImage(MultipartFile file, int clubId, int eventId) {
 		String MIMEType = file.getContentType();
-		String extension = MIMEType.substring(MIMEType.indexOf("/")+ 1);
-		
-		String[] extensions = {".jpeg",".png",".jpg"};
+		String extension = MIMEType.substring(MIMEType.indexOf("/") + 1);
 
-		
+		String[] extensions = { ".jpeg", ".png", ".jpg" };
+
 		String fileName = eventId + "." + extension;
-		
-		DeleteFile.deleteFile(String.valueOf(eventId), rootLocation.toString()+"/club/events/" + clubId + "/", extensions);
-		
-		Path finalLocation = Paths.get(rootLocation.toString()+"/club/events/" + clubId + "/");
-		if(!Files.exists(finalLocation))
+
+		DeleteFile.deleteFile(String.valueOf(eventId), rootLocation.toString() + "/club/events/" + clubId + "/",
+				extensions);
+
+		Path finalLocation = Paths.get(rootLocation.toString() + "/club/events/" + clubId + "/");
+		if (!Files.exists(finalLocation))
 			try {
 				Files.createDirectories(finalLocation);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-		
-		try(InputStream inputStream = file.getInputStream()){
-			Files.copy(inputStream, finalLocation.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);		
-		} catch(IOException e) {
-		e.printStackTrace(); 
+
+		try (InputStream inputStream = file.getInputStream()) {
+			Files.copy(inputStream, finalLocation.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public InputStreamResource getImage(int clubId, int eventId) throws NoSuchFileFoundException {
-		var imgFile = new ClassPathResource(rootLocationClassResource + "/club/events/" +clubId+ "/" + eventId + ".jpeg");
-		if(!imgFile.exists()) imgFile = new ClassPathResource(rootLocationClassResource + "/club/events/" +clubId+ "/" + eventId+".jpg");
-		if(!imgFile.exists()) imgFile = new ClassPathResource(rootLocationClassResource + "/club/events/" +clubId+ "/" + eventId+".png");
-		if(!imgFile.exists()) throw new NoSuchFileFoundException("Image with clubId="+clubId + " and eventId="+eventId+" was not found");
+		var imgFile = new ClassPathResource(
+				rootLocationClassResource + "/club/events/" + clubId + "/" + eventId + ".jpeg");
+		if (!imgFile.exists())
+			imgFile = new ClassPathResource(
+					rootLocationClassResource + "/club/events/" + clubId + "/" + eventId + ".jpg");
+		if (!imgFile.exists())
+			imgFile = new ClassPathResource(
+					rootLocationClassResource + "/club/events/" + clubId + "/" + eventId + ".png");
+		if (!imgFile.exists())
+			throw new NoSuchFileFoundException(
+					"Image with clubId=" + clubId + " and eventId=" + eventId + " was not found");
 		try {
 			return new InputStreamResource(imgFile.getInputStream());
 		} catch (IOException e) {
