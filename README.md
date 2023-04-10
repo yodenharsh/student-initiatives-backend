@@ -129,11 +129,36 @@ COEPosts -
 <td>DELETE</td>
 <td><p>JSON Format - </p>
 <p>{</p>
-<p>"success": string
+<p>"email":string, "password": string
 <p>}</p>
 </td>
 <td>JSON with success: "true" or "false"</td>
 <td>Deletes the user with those credentials AND the club associated with that user</td>
+</tr>
+<tr>
+<td>
+/api/admin</td>
+<td>POST</td>
+<td>JSON format - <BR/>
+{ "email": string, "password": string } </td>
+<td>JSON with success: "true" or "false"</td>
+<td>Adds the given credentials as an Admin</td>
+</tr>
+<tr>
+<td>/api/admin/login</td>
+<td>POST</td>
+<td>JSON format - <BR/>
+{ "email": string, "password": string } </td>
+<td>JSON with success: "true" or "false"</td>
+<td>Returns success = "true" if credentials are correct or returns false</td>
+</tr>
+<tr>
+<td>/api/admin</td>
+<td>DELETE</td>
+<td>JSON format - <BR/>
+{ "email": string, "password": string } </td>
+<td>JSON with success: "true" or "false"</td>
+<td>Returns success = "true" if given admin was removed successfully from the database or returns false</td>
 </tr>
 </table>
 
@@ -235,6 +260,21 @@ COEPosts -
 <td>The path variable {clubId}</td>
 <td>JSON format - {"success": string}</td>
 <td>Deletes club with the given clubId and returns success: "true" or "false"</td>
+</tr>
+<tr>
+<td>/api/club</td>
+<td>PATCH</td>
+<td>JSON format - 
+<p>{</p>
+<p>"clubName": string, <br/>
+"presidentName": string, <br/>
+"vicePresidentName": string, <br/>
+"mission": string<br/>
+"vision": string</br>
+}
+</td>
+<td>on success, Club</td>
+<td>On success, returns the same club with the updated fields</td>
 </tr>
 <tr>
 <td>/api/club/{clubId}/image/{type}</td>

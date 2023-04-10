@@ -50,7 +50,7 @@ public class UserREST {
 	
 	@SuppressWarnings("deprecation")
 	@CrossOrigin
-	@PostMapping(value = "/user/login", consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@PostMapping(value = "/user/login", consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	public Map<String, Integer> login(@RequestBody User user) throws InvalidCredentialsException {
 		Map<String, Integer> responseMap = userService.loginAndGetID(user);
 		return responseMap;
