@@ -1,5 +1,6 @@
 package com.woxsen.studentinitiatives.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.core.io.InputStreamResource;
@@ -16,6 +17,8 @@ public interface COEPostsService {
 	public List<COEPosts> findByCOEId(int coeId);
 	
 	public List<COEPosts> findAll();
+	
+	public List<COEPosts> findByDateRange(LocalDate start, LocalDate end);
 	
 	public COEPosts patchCOEPost(COEPosts coePost, int coePostId);
 	

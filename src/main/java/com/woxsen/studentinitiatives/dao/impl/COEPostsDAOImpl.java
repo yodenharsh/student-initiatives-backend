@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -79,6 +80,20 @@ public class COEPostsDAOImpl implements COEPostsDAO {
 
 		return coePosts;
 
+	}
+	
+	@Override
+	public List<COEPosts> findByDateRange(LocalDateTime start, LocalDateTime end){
+		Session session = entityManager.unwrap(Session.class);
+		
+		SelectionQuery<COEPosts> q = session.createSelectionQuery("from COEPosts c where c.date >= :s AND c.date <= :e", COEPosts.class);
+		
+		q.setParameter("s", start);
+		q.setParameter("e", end);
+		
+		List<COEPosts> coePosts = q.getResultList();
+		
+		return coePosts;
 	}
 
 	@Override

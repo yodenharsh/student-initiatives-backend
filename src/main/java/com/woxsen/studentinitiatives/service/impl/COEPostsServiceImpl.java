@@ -1,5 +1,7 @@
 package com.woxsen.studentinitiatives.service.impl;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,15 @@ public class COEPostsServiceImpl implements COEPostsService {
 	public List<COEPosts> findAll() {
 		return coePostsDAO.findAll();
 	}
+	
+	@Override
+	@Transactional
+	public List<COEPosts> findByDateRange(LocalDate start, LocalDate end) {
+		LocalDateTime start_converted = start.atStartOfDay();
+		LocalDateTime end_converted = end.atTime(23, 59, 59);
+		
+		return coePostsDAO.findByDateRange(start_converted, end_converted);
+	}
 
 	@Override
 	@Transactional
@@ -87,5 +98,6 @@ public class COEPostsServiceImpl implements COEPostsService {
 	public void saveFile(MultipartFile file, int coeId, int coePostId) {
 		coePostsDAO.saveFile(file, coeId, coePostId);
 	}
+
 
 }

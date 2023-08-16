@@ -1,5 +1,6 @@
 package com.woxsen.studentinitiatives.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.core.io.InputStreamResource;
@@ -17,6 +18,8 @@ public interface COEPostsDAO {
 	public List<COEPosts> findByCOEId(int coeId);
 	
 	public List<COEPosts> findAll();
+	
+	public List<COEPosts> findByDateRange(LocalDateTime start, LocalDateTime end);
 	
 	public COEPosts patchCOEPost(COEPosts coePost);
 	

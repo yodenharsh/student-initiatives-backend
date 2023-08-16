@@ -505,6 +505,23 @@ Returns events between start date and end date (inclusive).
 <td>Gets info for COE Post with id = coePostId</td>
 </tr>
 <tr>
+<td>/api/coe-post/dateRange</td>
+<td>GET</td>
+<td>JSON format - <br>
+{ <br>
+"start": string (in format yyyy-mm-dd),<br>
+"end": string (in format yyyy-mm-dd) <br>
+}
+</td>
+<td>
+COEPosts[]
+</td>
+<td>
+Returns COE Posts between start date and end date (inclusive). 
+<b>Note:</b> To get posts for one date, put start and end as same
+</td>
+</tr>
+<tr>
 <td>/api/coe-post/{coeId}/</td>
 <td>POST</td>
 <td><p>The path variable {coeId} and request body = JSON Format -</p>

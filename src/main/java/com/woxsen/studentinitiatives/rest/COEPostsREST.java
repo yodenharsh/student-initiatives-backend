@@ -1,5 +1,6 @@
 package com.woxsen.studentinitiatives.rest;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -66,10 +67,15 @@ public class COEPostsREST {
 		mapping.setFilters(filters);
 		return mapping;
 	}
-
+	
 	@GetMapping(value = "/coe-post/{coePostId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public COEPosts findByCOEPostId(@PathVariable int coePostId) {
 		return coePostsService.findById(coePostId);
+	}
+	
+	@GetMapping(value = "/coe-post/dateRange",produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<COEPosts> findByDateRange(@RequestBody HashMap<String,String> dates){
+		return coePostsService.findByDateRange(LocalDate.parse(dates.get("start")),LocalDate.parse(dates.get("end")));
 	}
 
 	@PatchMapping(value = "/coe-post/{coePostId}", consumes = MediaType.APPLICATION_JSON_VALUE)
