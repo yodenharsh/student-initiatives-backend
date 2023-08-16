@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -79,6 +80,21 @@ public class EventDAOImpl implements EventDAO {
 			throw new EntityNotFoundException("No event with eventId=" + eventId + " was found");
 
 		return event;
+	}
+	
+	@Override
+	public List<ClubEvent> findByDateRange(LocalDateTime start, LocalDateTime end){
+		Session session = entityManager.unwrap(Session.class);
+		
+		SelectionQuery<ClubEvent> q = session.createSelectionQuery("from ClubEvent e where e.date >= :s AND e.date <= :e",ClubEvent.class);
+		
+		q.setParameter("s", start);
+		q.setParameter("e", end);
+		
+		List<ClubEvent> events = q.getResultList();
+		
+		return events;
+	
 	}
 
 	@Override

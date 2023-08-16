@@ -1,5 +1,6 @@
 package com.woxsen.studentinitiatives.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.core.io.InputStreamResource;
@@ -15,6 +16,8 @@ public interface EventService {
 	public List<ClubEvent> findByClubID(int clubId);
 	
 	public ClubEvent findByEventId(int eventId);
+	
+	public List<ClubEvent> findByDateRange(LocalDate start, LocalDate end);
 	
 	public int add(EventAdd event);
 	

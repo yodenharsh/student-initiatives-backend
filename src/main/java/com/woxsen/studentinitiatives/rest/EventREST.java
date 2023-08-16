@@ -1,5 +1,6 @@
 package com.woxsen.studentinitiatives.rest;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -63,6 +64,12 @@ public class EventREST {
 	@GetMapping("/event/{eventId}")
 	public ClubEvent findByEventId(@PathVariable int eventId) {
 		return eventService.findByEventId(eventId);
+	}
+	
+	@CrossOrigin
+	@GetMapping("/event/dateRange")
+	public List<ClubEvent> findByDateRange(@RequestBody HashMap<String, String> dateRange) {
+		return eventService.findByDateRange(LocalDate.parse(dateRange.get("start")), LocalDate.parse(dateRange.get("end")));
 	}
 	
 	@CrossOrigin

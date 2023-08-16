@@ -1,5 +1,6 @@
 package com.woxsen.studentinitiatives.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.core.io.InputStreamResource;
@@ -16,6 +17,8 @@ public interface EventDAO {
 	public List<ClubEvent> findByClubID(int clubId);
 	
 	public ClubEvent findByEventId(int eventId);
+	
+	public List<ClubEvent> findByDateRange(LocalDateTime start, LocalDateTime end);
 	
 	public int add(EventAdd event);
 	

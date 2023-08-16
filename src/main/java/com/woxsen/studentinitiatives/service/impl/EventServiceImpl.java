@@ -1,5 +1,7 @@
 package com.woxsen.studentinitiatives.service.impl;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,16 @@ public class EventServiceImpl implements EventService {
 	@Transactional
 	public ClubEvent findByEventId(int eventId) {
 		return eventDAO.findByEventId(eventId);
+	}
+	
+	@Override
+	@Transactional
+	public List<ClubEvent> findByDateRange(LocalDate start, LocalDate end){
+		
+		LocalDateTime startConverted = start.atStartOfDay();
+		LocalDateTime endConverted = end.atTime(23, 59, 59);
+		
+		return eventDAO.findByDateRange(startConverted, endConverted);
 	}
 
 	@Override

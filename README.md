@@ -325,6 +325,23 @@ JSON format - Event[]
 <td>Gets a list of all event associated with the club</td>
 </tr>
 <tr>
+<td>/api/event/dateRange</td>
+<td>GET</td>
+<td>JSON format - <br>
+{ <br>
+"start": string (in format yyyy-mm-dd),<br>
+"end": string (in format yyyy-mm-dd) <br>
+}
+</td>
+<td>
+Event[]
+</td>
+<td>
+Returns events between start date and end date (inclusive). 
+<b>Note:</b> To get events for one date, put start and end as same
+</td>
+</tr>
+<tr>
 <td>/api/event</td>
 <td>POST</td>
 <td><p>JSON Format -</p>
