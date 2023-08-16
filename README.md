@@ -326,7 +326,7 @@ JSON format - Event[]
 </tr>
 <tr>
 <td>/api/event/dateRange</td>
-<td>GET</td>
+<td>POST</td>
 <td>JSON format - <br>
 { <br>
 "start": string (in format yyyy-mm-dd),<br>
@@ -506,7 +506,7 @@ Returns events between start date and end date (inclusive).
 </tr>
 <tr>
 <td>/api/coe-post/dateRange</td>
-<td>GET</td>
+<td>POST</td>
 <td>JSON format - <br>
 { <br>
 "start": string (in format yyyy-mm-dd),<br>

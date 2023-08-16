@@ -73,7 +73,7 @@ public class COEPostsREST {
 		return coePostsService.findById(coePostId);
 	}
 	
-	@GetMapping(value = "/coe-post/dateRange",produces=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/coe-post/dateRange",produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<COEPosts> findByDateRange(@RequestBody HashMap<String,String> dates){
 		return coePostsService.findByDateRange(LocalDate.parse(dates.get("start")),LocalDate.parse(dates.get("end")));
 	}

@@ -67,7 +67,7 @@ public class EventREST {
 	}
 	
 	@CrossOrigin
-	@GetMapping("/event/dateRange")
+	@PostMapping("/event/dateRange")
 	public List<ClubEvent> findByDateRange(@RequestBody HashMap<String, String> dateRange) {
 		return eventService.findByDateRange(LocalDate.parse(dateRange.get("start")), LocalDate.parse(dateRange.get("end")));
 	}
